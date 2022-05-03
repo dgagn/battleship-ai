@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Ai\Observers\MissileObserver;
+use App\Ai\ShipAi;
+use App\Ai\States\PassiveState;
+use App\Models\Missile;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +17,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**
@@ -23,6 +26,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
     }
 }

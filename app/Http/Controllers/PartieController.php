@@ -2,84 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PartieRequest;
+use App\Http\Resources\PartieResource;
+use App\Models\Ai;
+use App\Models\Bateau;
 use App\Models\Partie;
-use Illuminate\Http\Request;
 
 class PartieController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return PartieResource
      */
-    public function store(Request $request)
+    public function store(PartieRequest $request)
     {
-        //
-    }
+        $partie = Partie::query()->create($request->validated());
+        $boats = Bateau::all();
+        foreach ($boats as $boat) {
+            $partie->remainingBoats()->create([
+                'bateau_id' => $boat->id,
+            ]);
+        }
+        Ai::query()->create([
+            'partie_id' => $partie->id,
+            'is_hunt' => false,
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Partie  $partie
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Partie $partie)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Partie  $partie
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Partie $partie)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Partie  $partie
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Partie $partie)
-    {
-        //
+        return new PartieResource($partie);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Partie  $partie
-     * @return \Illuminate\Http\Response
+     * @return PartieResource
      */
     public function destroy(Partie $partie)
     {
-        //
+        $this->authorize('delete', $partie);
+        $partie->delete();
+
+        return new PartieResource($partie);
     }
 }
