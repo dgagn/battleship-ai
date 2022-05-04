@@ -19,6 +19,7 @@ Route::prefix('/parties')
     ->controller(PartieMissileController::class)
     ->middleware('auth:sanctum')
     ->group(function () {
+        Route::get('/{partie}', 'show');
         Route::post('/{partie}/missiles', 'store');
         Route::put('/{partie}/missiles/{coord}', 'update');
     });

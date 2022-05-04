@@ -2,6 +2,7 @@
 
 namespace App\Ai\States;
 
+use App\Ai\Facades\Ai;
 use App\Ai\Grid;
 use App\Ai\ShipAi;
 use App\Ai\ShipState;
@@ -18,6 +19,7 @@ class TargetState extends ShipState
         $shots = $partie->missiles()->get()
             ->map(fn ($missile) => $missile->coordonnee);
         $grid = new Grid($sizes, $shots);
+
         $corners = $partie->stacks()->get()
             ->map(fn ($stack) => $stack->coord);
 

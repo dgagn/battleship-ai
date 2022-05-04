@@ -2,6 +2,7 @@
 
 namespace App\Ai\Providers;
 
+use App\Ai\Facades\Ai;
 use App\Ai\ShipAi;
 use App\Ai\States\HuntingState;
 use App\Ai\States\PassiveState;

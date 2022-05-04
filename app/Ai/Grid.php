@@ -31,9 +31,10 @@ class Grid
     public function targetmap(Collection $corners, Collection $weighting)
     {
         $heatmaps = $this->heatmaps();
+
         foreach ($heatmaps as $coord => $value) {
             if ($corners->contains($coord) && $value > 0) {
-                $heatmaps->put($coord, $value + self::SHIP_WEIGHT + ($weighting[$coord] ?? 0));
+                $heatmaps->put($coord, $value + self::SHIP_WEIGHT + ($weighting->get($coord) ?? 0));
             }
         }
 
@@ -52,7 +53,15 @@ class Grid
                         $direction->mult($size)
                     );
 
-                    if (! $ship->within(0, 9) || $this->shots->filter(fn ($coord) => $coord == strval($ship) || $coord == strval($vector))->count() > 0) {
+                    if (! $ship->within(0, 9)) {
+                        continue;
+                    }
+
+                    $list = $this->shots->filter(fn ($coord) => $coord == strval($ship) || $coord == strval($vector));
+                    if ($list->count() > 0) {
+                        foreach ($list as $item) {
+                            $heatmaps[strval($item)] = 0;
+                        }
                         continue;
                     }
 
@@ -63,6 +72,7 @@ class Grid
                         $filtered = $this->shots->filter(fn ($coord) => $coord == strval($newcalc));
                         if ($filtered->count() > 0) {
                             $isValid = false;
+                            $heatmaps[strval($newcalc)] = 0;
                             break;
                         }
                     }
@@ -70,8 +80,8 @@ class Grid
                         continue;
                     }
 
-                    $heatmaps[strval($vector)]++;
                     $vec = $vector->copy();
+                    $heatmaps[strval($vec)]++;
                     while (! $vec->equals($ship)) {
                         $vec = $vec->add($direction);
                         $heatmaps[strval($vec)]++;
@@ -88,7 +98,7 @@ class Grid
         $heatmap = [];
         for ($y = 0; $y < self::SIZE; $y++) {
             for ($x = 0; $x < self::SIZE; $x++) {
-                $heatmap[strval(new Vector($x, $y))] = 0;
+                $heatmap[strval(new Vector($x, $y))] = 1;
             }
         }
 

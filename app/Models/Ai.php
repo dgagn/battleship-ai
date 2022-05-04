@@ -10,4 +10,9 @@ class Ai extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function isTarget()
+    {
+        return $this->is_hunt;
+    }
 }

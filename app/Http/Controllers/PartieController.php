@@ -20,11 +20,13 @@ class PartieController extends Controller
     {
         $partie = Partie::query()->create($request->validated());
         $boats = Bateau::all();
+
         foreach ($boats as $boat) {
             $partie->remainingBoats()->create([
                 'bateau_id' => $boat->id,
             ]);
         }
+
         Ai::query()->create([
             'partie_id' => $partie->id,
             'is_hunt' => false,

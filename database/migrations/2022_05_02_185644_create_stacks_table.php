@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->integer('weight');
             $table->integer('dir')->default(0);
             $table->unique(['partie_id', 'coord']);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
