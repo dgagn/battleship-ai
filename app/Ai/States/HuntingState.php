@@ -25,12 +25,13 @@ class HuntingState extends ShipState
         $parity = $sizes->sort()->first();
 
         $arr = $heatmap->sortDesc()->keys()
-            ->skipUntil(function($key) use ($parity) {
+            ->skipUntil(function ($key) use ($parity) {
                 $vec = Vector::make($key);
+
                 return ($vec->getX() + $vec->getY()) % $parity == 0;
             })->first();
 
-        if (!$arr) {
+        if (! $arr) {
             return Vector::make($heatmap->sortDesc()->keys()->first());
         }
 

@@ -7,9 +7,11 @@ use Illuminate\Support\Collection;
 class Grid
 {
     public const SIZE = 10;
+
     public const SHIP_WEIGHT = 200;
 
     private Collection $sizes;
+
     private Collection $shots;
 
     public function __construct(Collection $sizes, Collection $shots)

@@ -199,4 +199,9 @@ class Vector
     {
         return chr(65 + $this->dy).'-'.($this->dx + 1);
     }
+
+    public function str(): string
+    {
+        return strval($this);
+    }
 }

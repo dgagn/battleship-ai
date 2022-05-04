@@ -13,5 +13,4 @@ test('grid', function () {
     $grid = new Grid($shipSizes, $shots);
 
     //dd($grid->targetmap(collect(['E-4', 'F-5', 'E-6', 'D-5']), collect(['E-4' => 5, 'F-5' => 10])));
-
 });

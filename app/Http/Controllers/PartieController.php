@@ -13,14 +13,14 @@ class PartieController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param PartieRequest $request
      * @return PartieResource
      */
     public function store(PartieRequest $request)
     {
         $partie = Partie::query()->create($request->validated());
-        $boats = Bateau::all();
 
+        $boats = Bateau::all();
         foreach ($boats as $boat) {
             $partie->remainingBoats()->create([
                 'bateau_id' => $boat->id,
@@ -29,7 +29,7 @@ class PartieController extends Controller
 
         Ai::query()->create([
             'partie_id' => $partie->id,
-            'is_hunt' => false,
+            'is_target' => false,
         ]);
 
         return new PartieResource($partie);

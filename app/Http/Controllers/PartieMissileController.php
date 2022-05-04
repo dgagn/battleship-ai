@@ -9,7 +9,6 @@ use App\Ai\Vector;
 use App\Http\Requests\UpdatePartieMissileRequest;
 use App\Http\Resources\PartieMissileResource;
 use App\Models\Bateau;
-use App\Models\Missile;
 use App\Models\Partie;
 
 class PartieMissileController extends Controller
@@ -20,7 +19,7 @@ class PartieMissileController extends Controller
 
         $ai = $partie->ai()->first();
 
-        if ($ai->is_hunt) {
+        if ($ai->is_target) {
             Ai::target();
         } else {
             Ai::hunting();
@@ -42,7 +41,7 @@ class PartieMissileController extends Controller
         $missile = $partie->missiles()->where('coordonnee', $coord)->firstOrFail();
 
         $missile->update([
-            'resultat' => $resultat
+            'resultat' => $resultat,
         ]);
 
         $ai = $partie->ai()->first();
@@ -61,7 +60,7 @@ class PartieMissileController extends Controller
 
             foreach ($directions as $direction) {
                 $newvec = $vec->add($direction);
-                if (!$newvec->within(0, 9)) {
+                if (! $newvec->within(0, 9)) {
                     continue;
                 }
 
@@ -75,17 +74,15 @@ class PartieMissileController extends Controller
                     $direction == Vector::down() ? Direction::Y
                     : Direction::X;
 
-
                 $partie->stacks()->updateOrCreate([
                     'coord' => strval($newvec),
                 ], [
                     'weight' => $heat,
                     'dir' => $dir,
                 ]);
-
             }
 
-            if ($ai->is_hunt) {
+            if ($ai->is_target) {
                 $stackers = $partie->stacks()->withTrashed()->where('coord', $coord);
                 if ($stackers->exists()) {
                     $stacksOfDirection = $partie->stacks()->where('dir', $stackers->first()->dir)->get();
@@ -97,9 +94,9 @@ class PartieMissileController extends Controller
             }
 
             $ai->hits++;
-            $ai->is_hunt = true;
+            $ai->is_target = true;
             $ai->save();
-        } else if ($resultat > 1) {
+        } elseif ($resultat > 1) {
             $partie->remainingBoats()
                 ->where('bateau_id', $resultat - 1)
                 ->first()
@@ -113,11 +110,12 @@ class PartieMissileController extends Controller
             $ai->save();
 
             if ($ai->hits == 0) {
-                $ai->is_hunt = false;
+                $ai->is_target = false;
                 $ai->save();
-                $partie->stacks()->each(function($stack) use ($coord) {
-                    if ($stack->coord != $coord)
+                $partie->stacks()->each(function ($stack) use ($coord) {
+                    if ($stack->coord != $coord) {
                         $stack->delete();
+                    }
                 });
             }
         }
