@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 /**
  * @property string $opponent the opponent of the game.
+ * @property int $user_id the id of the user that has the game.
  *
  * @author Dany Gagnon
  */

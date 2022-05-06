@@ -8,6 +8,12 @@ use App\Http\Resources\GameResource;
 use App\Models\Game;
 use Illuminate\Auth\Access\AuthorizationException;
 
+/**
+ * The game controller controls the routes related to creating
+ * or deleting a battleship game.
+ *
+ * @author Dany Gagnon
+ */
 class GameController extends Controller
 {
     /**

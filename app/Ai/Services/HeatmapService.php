@@ -65,7 +65,7 @@ class HeatmapService
 
         $oldShots = Game::query()->where('opponent', $this->game->getOpponent())->get();
 
-        $oldShots->map(function($game) {
+        $oldShots->map(function ($game) {
             return $game->missiles()->where('result', '>', 0)->get()
                 ->map(fn ($missile) => $missile->getCoordinate());
         });

@@ -21,5 +21,6 @@ Route::prefix('/parties')
     ->group(function () {
         Route::get('/{game}', 'show');
         Route::post('/{game}/missiles', 'store');
-        Route::put('/{game}/missiles/{missile:coordinate}', 'update')->scopeBindings();
+        Route::put('/{game}/missiles/{missile:coordinate}', 'update')
+            ->scopeBindings();
     });

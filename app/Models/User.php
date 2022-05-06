@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 /**
  * The user that plays battleship.
  *
+ * @property int $id the id of the user.
  * @author Dany Gagnon
  */
 class User extends Authenticatable

@@ -26,7 +26,7 @@ class Heatmap
     /** @var Collection the collection representing the stacks. */
     private Collection $stacks;
 
-    /** @var Collection the old shots  */
+    /** @var Collection the old shots */
     private Collection $oldShots;
 
     /**

@@ -6,6 +6,11 @@ use App\Models\Boat;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+/**
+ * Creates the boats for the battleship game.
+ *
+ * @author Dany Gagnon
+ */
 class BoatSeeder extends Seeder
 {
     /**

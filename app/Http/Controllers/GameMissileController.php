@@ -13,6 +13,11 @@ use Illuminate\Auth\Access\AuthorizationException;
 
 class GameMissileController extends Controller
 {
+    /**
+     * Creates an AI based missile.
+     *
+     * @throws AuthorizationException
+     */
     public function store(Game $game): GameMissileResource
     {
         $this->authorize('view', $game);
@@ -22,6 +27,8 @@ class GameMissileController extends Controller
     }
 
     /**
+     * Update the result of the missile.
+     *
      * @param UpdateGameMissileRequest $request
      * @param Game $game
      * @param Missile $missile
