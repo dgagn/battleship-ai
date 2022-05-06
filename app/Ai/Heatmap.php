@@ -157,7 +157,7 @@ class Heatmap
     /**
      * Returns a heatmap with the generated weighting for a boat
      * with a size of x. It tests all the possibility to place
-     * a boat in every directions, and makes sure it is not
+     * a boat in every direction, and makes sure it is not
      * present in shots.
      *
      * the shots to create a heatmap around. It will make sure

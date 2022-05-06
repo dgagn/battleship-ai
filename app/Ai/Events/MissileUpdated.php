@@ -7,6 +7,11 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * The event called when a missile is updated with a result.
+ *
+ * @author Dany Gagnon
+ */
 class MissileUpdated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
@@ -16,8 +21,6 @@ class MissileUpdated
 
     /**
      * Create a new event for when a missile updates.
-     *
-     * @return void
      */
     public function __construct(Missile $missile)
     {
@@ -25,7 +28,9 @@ class MissileUpdated
     }
 
     /**
-     * @return Missile
+     * Returns the missile associated with the event.
+     *
+     * @return Missile the missile associated with the event
      */
     public function getMissile(): Missile
     {

@@ -8,7 +8,7 @@ use App\Models\Game;
 use Illuminate\Support\Collection;
 
 /**
- * The class responsilble to get all the required arguments
+ * The class responsible to get all the required arguments
  * to create a heatmap with all the eloquent models. It makes
  * sure to create the heatmap object with everything it needs.
  *

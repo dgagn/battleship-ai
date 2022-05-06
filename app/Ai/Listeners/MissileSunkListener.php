@@ -9,13 +9,18 @@ use App\Ai\Vector;
 use App\Models\Boat;
 use App\Models\Game;
 
+/**
+ * Handles the hit when a missile sunk a ship.
+ *
+ * @author Dany Gagnon
+ */
 class MissileSunkListener
 {
     /**
-     * Handle the event.
+     * Handle the hit when a missile sunk a ship.
      *
-     * @param MissileUpdated $event
-     * @return void
+     * @param MissileUpdated $event the event when a missile
+     * updates
      */
     public function handle(MissileUpdated $event)
     {

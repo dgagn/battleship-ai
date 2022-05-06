@@ -8,13 +8,19 @@ use App\Ai\Vector;
 use App\Models\Boat;
 use App\Models\Game;
 
+/**
+ * Handles creating the AI and the remaining boats when a game
+ * is created.
+ *
+ * @author Dany Gagnon
+ */
 class GameCreatedListener
 {
     /**
-     * Handle the event.
+     * Handles creating the AI and the remaining boats when a
+     * game is created.
      *
-     * @param GameCreated $event
-     * @return void
+     * @param GameCreated $event the event when a game is created
      */
     public function handle(GameCreated $event)
     {

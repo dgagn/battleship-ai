@@ -9,13 +9,18 @@ use App\Ai\Vector;
 use App\Models\Boat;
 use App\Models\Game;
 
+/**
+ * Class responsible to handle the sunk event for the stack.
+ *
+ * @author Dany Gagnon
+ */
 class MissileSunkStackListener
 {
     /**
-     * Handle the event.
+     * Handle when a missile updates, it is responsible to
+     * handle the stack when a missile sunk a boat.
      *
-     * @param MissileUpdated $event
-     * @return void
+     * @param MissileUpdated $event the missile updated event
      */
     public function handle(MissileUpdated $event)
     {

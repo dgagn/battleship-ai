@@ -8,13 +8,20 @@ use App\Ai\Services\HeatmapService;
 use App\Ai\Vector;
 use App\Models\Game;
 
+/**
+ * Handles when a missile hit and manages the stack creation/
+ * deletion/update.
+ *
+ * @author Dany Gagnon
+ */
 class MissileHitStackListener
 {
     /**
-     * Handle the event.
+     * Handle when a missile hit and manages the stack creation/
+     * deletion/update.
      *
-     * @param MissileUpdated $event
-     * @return void
+     * @param MissileUpdated $event the event of the missile
+     * that was updated.
      */
     public function handle(MissileUpdated $event)
     {

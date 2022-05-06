@@ -8,13 +8,18 @@ use App\Ai\Services\HeatmapService;
 use App\Ai\Vector;
 use App\Models\Game;
 
+/**
+ * Handles updating the hits when a missile hits a boat.
+ *
+ * @author Dany Gagnon
+ */
 class MissileHitListener
 {
     /**
-     * Handle the event.
+     * Handles updating the hits when a missile hits a boat.
      *
-     * @param MissileUpdated $event
-     * @return void
+     * @param MissileUpdated $event the event when a missile
+     * is updated
      */
     public function handle(MissileUpdated $event)
     {
