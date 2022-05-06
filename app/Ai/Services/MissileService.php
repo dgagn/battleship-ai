@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * The service that is responsible to create a missile with
- * the best possible coordinate
+ * the best possible coordinate.
  *
  * @author Dany Gagnon
  */

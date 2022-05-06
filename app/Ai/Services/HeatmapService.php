@@ -63,6 +63,13 @@ class HeatmapService
         $stackCoordinatesWithWeight = $this->game->stacks()->get()
             ->flatMap(fn ($stack) => [$stack->coordinate => $stack->weight]);
 
-        return new Heatmap($shots, $boatSizes, $stackCoordinatesWithWeight);
+        $oldShots = Game::query()->where('opponent', $this->game->getOpponent())->get();
+
+        $oldShots->map(function($game) {
+            return $game->missiles()->where('result', '>', 0)->get()
+                ->map(fn ($missile) => $missile->getCoordinate());
+        });
+
+        return new Heatmap($shots, $boatSizes, $stackCoordinatesWithWeight, $oldShots);
     }
 }

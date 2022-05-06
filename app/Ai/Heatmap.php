@@ -26,6 +26,9 @@ class Heatmap
     /** @var Collection the collection representing the stacks. */
     private Collection $stacks;
 
+    /** @var Collection the old shots  */
+    private Collection $oldShots;
+
     /**
      * Constructs a heatmap that will weight all the coordinates
      * on a grid for battleship.
@@ -36,11 +39,12 @@ class Heatmap
      * @param Collection $stacks the stack to be able to
      * artificially weight the directions of missiles that hit.
      */
-    public function __construct(Collection $excludedFromHeatmap, Collection $boatSizes, Collection $stacks)
+    public function __construct(Collection $excludedFromHeatmap, Collection $boatSizes, Collection $stacks, Collection $oldShots)
     {
         $this->excludedFromHeatmap = $excludedFromHeatmap;
         $this->boatSizes = $boatSizes;
         $this->stacks = $stacks;
+        $this->oldShots = $oldShots;
     }
 
     /**
@@ -68,6 +72,14 @@ class Heatmap
     {
         $heatmap = $this->generateAll();
         $parity = $this->boatSizes->sort()->first();
+        $weightShot = config('battleship.weighting.shot');
+
+        foreach ($heatmap as $coordinate => $weighting) {
+            if (! $this->excludedFromHeatmap->contains($coordinate)) {
+                $heatmap->put($coordinate, $weighting + $weightShot);
+            }
+        }
+
         $highestWeighting = $heatmap->sortDesc()->keys()
             ->skipUntil(
                 fn ($coordinate) => Vector::from($coordinate)->parity($parity)
@@ -115,7 +127,7 @@ class Heatmap
     public function generateWithStacks(): Collection
     {
         $stackWeight = config('battleship.weighting.stack');
-        $weightNone = Config::get('battleship.weighting.none');
+        $weightNone = config('battleship.weighting.none');
         $heatmap = $this->generateAll()->filter(fn ($weight) => $weight !== $weightNone);
 
         foreach ($heatmap as $coordinate => $weighting) {

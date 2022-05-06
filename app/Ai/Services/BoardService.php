@@ -67,7 +67,7 @@ class BoardService
                 $startOfShip = Vector::from($heatmap->keys()->random());
                 $direction = Vector::directions()->random();
                 $endOfShipVector = $startOfShip->add(
-                    $direction->mult($boat->size)
+                    $direction->mult($boat->getSize())
                 );
                 $middleOfShip = $startOfShip->copy();
                 $hasMiddleOfShipInPlacement = false;
@@ -86,12 +86,12 @@ class BoardService
 
             $collection = collect([]);
             $middleOfShip = $startOfShip->copy();
-            for ($i = 0; $i < $boat->size; $i++) {
+            for ($i = 0; $i < $boat->getSize(); $i++) {
                 $middleOfShip = $middleOfShip->add($direction);
                 $collection->add($middleOfShip->str());
                 $placedBoats->add($middleOfShip->str());
             }
-            $board->put($boat->name, $collection);
+            $board->put($boat->getName(), $collection);
         });
 
         if ($placedBoats->unique()->count() !== $placedBoats->count()) {

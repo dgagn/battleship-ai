@@ -6,7 +6,7 @@ return [
         'none' => -9999,
         'default' => 1,
         'increment' => 1,
-        'ship' => 5,
+        'shot' => 5,
         'stack' => 200,
         'direction' => 100,
     ],

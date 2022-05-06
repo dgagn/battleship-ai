@@ -9,6 +9,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * The user that plays battleship.
+ *
+ * @author Dany Gagnon
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -43,6 +48,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Returns a has-many relationship for having many games.
+     *
+     * @return HasMany a has-many relationship for having many
+     * games.
+     */
     public function games(): HasMany
     {
         return $this->hasMany(Game::class);
