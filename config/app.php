@@ -186,7 +186,6 @@ return [
         /*
          * Package Service Providers...
          */
-        AiServiceProvider::class,
 
         /*
          * Application Service Providers...

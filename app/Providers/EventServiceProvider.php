@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
-use App\AiV2\Events\MissileUpdated;
-use App\AiV2\Listeners\MissileHitListener;
-use App\AiV2\Listeners\MissileHitStackListener;
-use App\AiV2\Listeners\MissileHitStackWeightListener;
-use App\AiV2\Listeners\MissileSunkListener;
-use App\AiV2\Listeners\MissileSunkStackListener;
+use App\Ai\Events\GameCreated;
+use App\Ai\Events\MissileUpdated;
+use App\Ai\Listeners\GameCreatedListener;
+use App\Ai\Listeners\MissileHitListener;
+use App\Ai\Listeners\MissileHitStackListener;
+use App\Ai\Listeners\MissileHitStackWeightListener;
+use App\Ai\Listeners\MissileSunkListener;
+use App\Ai\Listeners\MissileSunkStackListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        GameCreated::class => [
+            GameCreatedListener::class,
         ],
         MissileUpdated::class => [
             MissileHitStackListener::class,

@@ -2,38 +2,35 @@
 
 namespace App\Ai\States;
 
-use App\Ai\Grid;
-use App\Ai\ShipAi;
-use App\Ai\ShipState;
+use App\Ai\Services\HeatmapService;
 use App\Ai\Vector;
-use App\Models\Boat;
-use App\Models\Game;
 
+/**
+ * Hunting state represents a ship state. It is the default
+ * state for searching all the ships. It is a smart search
+ * because it makes a probability density function and takes
+ * the most probable spot a boat could be. Furthermore, it also
+ * takes into account parity. For exemple, if the smallest boat
+ * is sunk, the algorithm will shoot every third square instead
+ * of every 2 because all the boats can be shot at least once
+ * with being shot every 3 square.
+ *
+ * @author Dany Gagnon
+ */
 class HuntingState extends ShipState
 {
-    public function shoot(ShipAi $ship, Game $partie): Vector
+    /**
+     * Returns the next coordinate for the shot. It creates
+     * a heatmap with a parity of the smallest boat.
+     *
+     * @param HeatmapService $service the heatmap service gives
+     * us all the information for creating a heatmap
+     * @return Vector the next coordinate for the shot.
+     */
+    public function shoot(HeatmapService $service): Vector
     {
-        // todo: setup rajouter dans facade
-        $sizes = $partie->remainingBoats()->get()
-            ->map(fn ($boat) => Boat::query()->where('id', $boat->bateau_id)->first()->size);
-        $shots = $partie->missiles()->get()
-            ->map(fn ($missile) => $missile->coordonnee);
-        $grid = new Grid($sizes, $shots);
+        $heatmap = $service->createHeatmap();
 
-        $heatmap = $grid->heatmaps();
-
-        $parity = $sizes->sort()->first();
-        $arr = $heatmap->sortDesc()->keys()
-            ->skipUntil(function ($key) use ($parity) {
-                $vec = Vector::make($key);
-
-                return ($vec->getX() + $vec->getY()) % $parity == 0;
-            })->first();
-
-        if (! $arr) {
-            return Vector::make($heatmap->sortDesc()->keys()->first());
-        }
-
-        return Vector::make($arr);
+        return Vector::from($heatmap->heaviestCoordinateWithParity());
     }
 }

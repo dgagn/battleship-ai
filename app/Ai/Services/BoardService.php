@@ -1,9 +1,8 @@
 <?php
 
-namespace App\AiV2\Services;
+namespace App\Ai\Services;
 
-use App\AiV2\Vector;
-use App\Models\Ai;
+use App\Ai\Vector;
 use App\Models\Boat;
 use App\Models\Game;
 use Illuminate\Support\Collection;
@@ -25,17 +24,17 @@ class BoardService
     /**
      * @var Game the game to associate the board with
      */
-    private Game $partie;
+    private Game $game;
 
     /**
      * Constructs a board service that is responsible to create
      * the board related stuff.
      *
-     * @param Game $partie the game to create a board for
+     * @param Game $game the game to create a board for
      */
-    public function __construct(Game $partie)
+    public function __construct(Game $game)
     {
-        $this->partie = $partie;
+        $this->game = $game;
     }
 
     /**
@@ -58,7 +57,7 @@ class BoardService
         $board = collect([]);
         $boats = Boat::all();
         $boats->each(function ($boat) use ($board, $boardSize, $placedBoats) {
-            $heatmap = (new HeatmapService($this->partie, $placedBoats))->createHeatmap()
+            $heatmap = (new HeatmapService($this->game, $placedBoats))->createHeatmap()
                 ->generateAll()
                 ->filter(fn ($weight) => $weight > 0)
                 ->sort()

@@ -2,34 +2,32 @@
 
 namespace App\Ai\States;
 
-use App\Ai\Facades\Ai;
-use App\Ai\Grid;
-use App\Ai\ShipAi;
-use App\Ai\ShipState;
+use App\Ai\Services\HeatmapService;
 use App\Ai\Vector;
-use App\Models\Boat;
-use App\Models\Game;
 
+/**
+ * The target state represent when the ship has hit another and
+ * tries to nuke the ship on the board. It selects a target and
+ * adds weighting of the stack to the heatmap to be able to
+ * attack all the enemies based on the modified heatmap.
+ *
+ * @author Dany Gagnon
+ */
 class TargetState extends ShipState
 {
-    public function shoot(ShipAi $ship, Game $partie): Vector
+    /**
+     * Returns the next coordinate for the shot. It creates
+     * a heatmap with the stacks.
+     *
+     * @param HeatmapService $service the heatmap service gives
+     * us all the information for creating a heatmap
+     * @return Vector the next coordinate for the shot. It creates
+     * a heatmap with the stacks.
+     */
+    public function shoot(HeatmapService $service): Vector
     {
-        $sizes = $partie->remainingBoats()->get()
-            ->map(fn ($boat) => Boat::query()->where('id', $boat->bateau_id)->first()->size);
-        $shots = $partie->missiles()->get()
-            ->map(fn ($missile) => $missile->coordonnee);
-        $grid = new Grid($sizes, $shots);
+        $heatmap = $service->createHeatmap();
 
-        $corners = $partie->stacks()->get()
-            ->map(fn ($stack) => $stack->coord);
-
-        $mix = $partie->stacks()->get()
-            ->flatMap(fn ($stack) => [$stack->coord => $stack->weight]);
-
-        $heatmap = $grid->targetmap($corners, $mix);
-
-        $arr = $heatmap->sortDesc()->keys()->first();
-
-        return Vector::make($arr);
+        return Vector::from($heatmap->heaviestCoordinateWithStacks());
     }
 }

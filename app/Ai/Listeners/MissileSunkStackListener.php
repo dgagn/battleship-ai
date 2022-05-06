@@ -1,10 +1,11 @@
 <?php
 
-namespace App\AiV2\Listeners;
+namespace App\Ai\Listeners;
 
-use App\AiV2\Events\MissileUpdated;
-use App\AiV2\Services\HeatmapService;
-use App\AiV2\Vector;
+use App\Ai\Events\GameCreated;
+use App\Ai\Events\MissileUpdated;
+use App\Ai\Services\HeatmapService;
+use App\Ai\Vector;
 use App\Models\Boat;
 use App\Models\Game;
 

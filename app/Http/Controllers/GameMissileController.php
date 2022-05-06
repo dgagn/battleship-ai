@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\AiV2\Events\MissileUpdated;
-use App\AiV2\Services\HeatmapService;
-use App\AiV2\Services\MissileService;
+use App\Ai\Events\MissileUpdated;
+use App\Ai\Services\HeatmapService;
+use App\Ai\Services\MissileService;
 use App\Http\Requests\UpdateGameMissileRequest;
 use App\Http\Resources\GameMissileResource;
-use App\Models\Boat;
 use App\Models\Game;
 use App\Models\Missile;
 use Illuminate\Auth\Access\AuthorizationException;

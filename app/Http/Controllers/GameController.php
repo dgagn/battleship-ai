@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\AiV2\Services\GameService;
+use App\Ai\Events\GameCreated;
 use App\Http\Requests\GameRequest;
 use App\Http\Resources\GameResource;
-use App\Models\Ai;
-use App\Models\Boat;
 use App\Models\Game;
 use Illuminate\Auth\Access\AuthorizationException;
 
@@ -27,8 +25,8 @@ class GameController extends Controller
         $game = Game::query()->create([
             'opponent' => $request->validated('adversaire'),
         ]);
-        $service = new GameService($game);
-        $service->createGameSetup();
+
+        event(new GameCreated($game));
 
         return new GameResource($game);
     }

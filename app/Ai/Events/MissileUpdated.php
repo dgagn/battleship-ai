@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AiV2\Events;
+namespace App\Ai\Events;
 
 use App\Models\Missile;
 use Illuminate\Broadcasting\InteractsWithSockets;

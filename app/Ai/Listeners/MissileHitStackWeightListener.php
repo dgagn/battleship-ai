@@ -1,8 +1,9 @@
 <?php
 
-namespace App\AiV2\Listeners;
+namespace App\Ai\Listeners;
 
-use App\AiV2\Events\MissileUpdated;
+use App\Ai\Events\GameCreated;
+use App\Ai\Events\MissileUpdated;
 
 class MissileHitStackWeightListener
 {

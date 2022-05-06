@@ -2,14 +2,10 @@
 
 namespace App\Models;
 
-use App\Ai\Board;
-use App\AiV2\Services\BoardService;
-use App\AiV2\Services\GameService;
+use App\Ai\Services\BoardService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
