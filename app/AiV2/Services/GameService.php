@@ -32,9 +32,9 @@ class GameService
      * Constructs a game service that is responsible to create
      * the board related stuff.
      *
-     * @param Game|Model $partie the game to create a board for
+     * @param Game $partie the game to create a board for
      */
-    public function __construct(Model|Game $partie)
+    public function __construct(Game $partie)
     {
         $this->partie = $partie;
     }

@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use App\AiV2\Events\MissileUpdated;
-use App\AiV2\Listeners\MissileStackListener;
+use App\AiV2\Listeners\MissileHitListener;
+use App\AiV2\Listeners\MissileSunkListener;
+use App\AiV2\Listeners\MissileSunkStackListener;
+use App\AiV2\Listeners\MissileHitStackListener;
+use App\AiV2\Listeners\MissileHitStackWeightListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,7 +24,11 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         MissileUpdated::class => [
-            MissileStackListener::class
+            MissileHitStackListener::class,
+            MissileHitStackWeightListener::class,
+            MissileHitListener::class,
+            MissileSunkListener::class,
+            MissileSunkStackListener::class,
         ]
     ];
 

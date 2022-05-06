@@ -4,7 +4,7 @@ namespace App\AiV2\Listeners;
 
 use App\AiV2\Events\MissileUpdated;
 
-class MissileStackWeight
+class MissileHitStackWeightListener
 {
     /**
      * Handle the event.
@@ -18,9 +18,7 @@ class MissileStackWeight
         $game = $missile->game()->first();
         $ai = $game->ai()->first();
 
-        $hit = config('battleship.result.hit');
-
-        if ($missile->getResult() !== $hit) {
+        if ($missile->getResult() !== config('battleship.result.hit')) {
             return;
         }
 

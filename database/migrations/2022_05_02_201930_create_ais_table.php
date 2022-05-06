@@ -14,7 +14,6 @@ return new class extends Migration {
     {
         Schema::create('ais', function (Blueprint $table) {
             $table->id();
-            $table->boolean('is_target')->default(false);
             $table->integer('hits')->default(0);
             $table->foreignId('game_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

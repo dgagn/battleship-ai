@@ -15,4 +15,14 @@ class Ai extends Model
     {
         return $this->hits !== 0;
     }
+
+    public function isHuntMode()
+    {
+        return $this->hits === 0;
+    }
+
+    public function getHits()
+    {
+        return $this->hits;
+    }
 }

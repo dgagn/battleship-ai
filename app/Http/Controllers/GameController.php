@@ -23,6 +23,7 @@ class GameController extends Controller
      */
     public function store(GameRequest $request): GameResource
     {
+        /** @var Game $game */
         $game = Game::query()->create([
             'opponent' => $request->validated('adversaire')
         ]);

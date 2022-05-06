@@ -12,7 +12,7 @@ class HeatmapService
     /**
      * @var Game the game associated with the heatmap.
      */
-    private Game $partie;
+    private Game $game;
 
     /**
      * The collection that gets excluded for heatmap generation.
@@ -27,14 +27,14 @@ class HeatmapService
      * says whether I should calculate the coordinate
      * or remove it entirely.
      *
-     * @param Game $partie the game associated with the creation
+     * @param Game $game the game associated with the creation
      * of the heatmap
      * @param Collection|null $excludedFromHeatmap the collection that is
      * excluded from the heatmap generation.
      */
-    public function __construct(Game $partie, Collection $excludedFromHeatmap = null)
+    public function __construct(Game $game, Collection $excludedFromHeatmap = null)
     {
-        $this->partie = $partie;
+        $this->game = $game;
         $this->excludedFromHeatmap = $excludedFromHeatmap;
     }
 
@@ -49,11 +49,11 @@ class HeatmapService
      */
     public function createHeatmap(): Heatmap
     {
-        $boatSizes = $this->partie->remainingBoats()->get()
+        $boatSizes = $this->game->remainingBoats()->get()
             ->map(fn ($boat) => Boat::query()->where('id', $boat->boat_id)->first()->size);
-        $shots = $this->excludedFromHeatmap ?? $this->partie->missiles()->get()
+        $shots = $this->excludedFromHeatmap ?? $this->game->missiles()->get()
             ->map(fn ($missile) => $missile->coordinate);
-        $stackCoordinatesWithWeight = $this->partie->stacks()->get()
+        $stackCoordinatesWithWeight = $this->game->stacks()->get()
             ->flatMap(fn ($stack) => [$stack->coordinate => $stack->weight]);
 
         return new Heatmap($shots, $boatSizes, $stackCoordinatesWithWeight);
