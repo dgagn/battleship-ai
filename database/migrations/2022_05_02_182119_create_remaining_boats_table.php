@@ -14,9 +14,9 @@ return new class extends Migration {
     {
         Schema::create('remaining_boats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('partie_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('bateau_id')->constrained('bateaux')->cascadeOnDelete();
-            $table->unique(['partie_id', 'bateau_id']);
+            $table->foreignId('game_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('boat_id')->constrained()->cascadeOnDelete();
+            $table->unique(['game_id', 'boat_id']);
             $table->timestamps();
         });
     }

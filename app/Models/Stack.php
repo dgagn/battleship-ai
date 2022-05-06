@@ -11,4 +11,14 @@ class Stack extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
+
+    public function getDirection()
+    {
+        return $this->direction;
+    }
+
+    public function getWeight()
+    {
+        return $this->weight;
+    }
 }

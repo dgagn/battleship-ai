@@ -11,8 +11,8 @@ class Ai extends Model
 
     protected $guarded = [];
 
-    public function isTarget()
+    public function isTargetMode()
     {
-        return $this->is_hunt;
+        return $this->hits !== 0;
     }
 }

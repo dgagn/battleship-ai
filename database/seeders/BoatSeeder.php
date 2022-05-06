@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Bateau;
+use App\Models\Boat;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class BateauSeeder extends Seeder
+class BoatSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -24,7 +24,7 @@ class BateauSeeder extends Seeder
         ];
 
         foreach ($boats as $boat => $size) {
-            Bateau::query()->create([
+            Boat::query()->create([
                 'name' => $boat,
                 'size' => $size,
             ]);

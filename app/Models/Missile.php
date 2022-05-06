@@ -14,8 +14,23 @@ class Missile extends Model
 
     protected $guarded = [];
 
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    public function getCoordinate()
+    {
+        return $this->coordinate;
+    }
+
+    public function game(): BelongsTo
+    {
+        return $this->belongsTo(Game::class);
+    }
+
     public function user(): HasOneThrough
     {
-        return $this->hasOneThrough(User::class, Partie::class);
+        return $this->hasOneThrough(User::class, Game::class);
     }
 }

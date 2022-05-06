@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->boolean('is_target')->default(false);
             $table->integer('hits')->default(0);
-            $table->foreignId('partie_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('game_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

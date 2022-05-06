@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PartieRequest extends FormRequest
+class UpdateGameMissileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class PartieRequest extends FormRequest
     public function rules()
     {
         return [
-            'adversaire' => 'required',
+            'resultat' => 'required|integer|between:0,6',
         ];
     }
 }

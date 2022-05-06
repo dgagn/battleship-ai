@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Ai\Board;
+use App\AiV2\Services\BoardService;
+use App\AiV2\Services\GameService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,9 +12,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-class Partie extends Model
+class Game extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -23,9 +26,10 @@ class Partie extends Model
         return $this->hasMany(Missile::class);
     }
 
-    public function boats()
+    public function board(): Collection
     {
-        return (new Board)->init();
+        $service = new BoardService($this);
+        return $service->createGameBoard();
     }
 
     public function remainingBoats(): HasMany
@@ -45,8 +49,8 @@ class Partie extends Model
 
     protected static function booted()
     {
-        static::creating(function ($partie) {
-            $partie->user_id = Auth::id();
+        static::creating(function ($game) {
+            $game->user_id = Auth::id();
         });
     }
 }

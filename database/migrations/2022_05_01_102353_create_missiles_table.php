@@ -14,10 +14,10 @@ return new class extends Migration {
     {
         Schema::create('missiles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('partie_id')->constrained()->cascadeOnDelete();
-            $table->char('coordonnee', 4);
-            $table->integer('resultat')->nullable();
-            $table->unique(['partie_id', 'coordonnee']);
+            $table->foreignId('game_id')->constrained()->cascadeOnDelete();
+            $table->char('coordinate', 4);
+            $table->integer('result')->nullable();
+            $table->unique(['game_id', 'coordinate']);
             $table->timestamps();
         });
     }

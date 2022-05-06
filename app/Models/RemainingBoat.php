@@ -12,8 +12,8 @@ class RemainingBoat extends Model
 
     protected $guarded = [];
 
-    public function bateaux(): HasMany
+    public function boats(): HasMany
     {
-        return $this->hasMany(Bateau::class);
+        return $this->hasMany(Boat::class);
     }
 }

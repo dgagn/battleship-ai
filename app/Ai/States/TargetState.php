@@ -7,15 +7,15 @@ use App\Ai\Grid;
 use App\Ai\ShipAi;
 use App\Ai\ShipState;
 use App\Ai\Vector;
-use App\Models\Bateau;
-use App\Models\Partie;
+use App\Models\Boat;
+use App\Models\Game;
 
 class TargetState extends ShipState
 {
-    public function shoot(ShipAi $ship, Partie $partie): Vector
+    public function shoot(ShipAi $ship, Game $partie): Vector
     {
         $sizes = $partie->remainingBoats()->get()
-            ->map(fn ($boat) => Bateau::query()->where('id', $boat->bateau_id)->first()->size);
+            ->map(fn ($boat) => Boat::query()->where('id', $boat->bateau_id)->first()->size);
         $shots = $partie->missiles()->get()
             ->map(fn ($missile) => $missile->coordonnee);
         $grid = new Grid($sizes, $shots);

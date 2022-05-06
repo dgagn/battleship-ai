@@ -2,9 +2,9 @@
 
 namespace App\Ai;
 
-use App\Models\Partie;
+use App\Models\Game;
 
 abstract class ShipState
 {
-    abstract public function shoot(ShipAi $ship, Partie $partie): Vector;
+    abstract public function shoot(ShipAi $ship, Game $partie): Vector;
 }

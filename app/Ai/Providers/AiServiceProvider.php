@@ -2,13 +2,9 @@
 
 namespace App\Ai\Providers;
 
-use App\Ai\Facades\Ai;
 use App\Ai\ShipAi;
 use App\Ai\States\HuntingState;
-use App\Ai\States\PassiveState;
-use App\Models\Missile;
 use Illuminate\Support\ServiceProvider;
-use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class AiServiceProvider extends ServiceProvider
 {

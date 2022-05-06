@@ -2,7 +2,7 @@
 
 namespace App\Ai;
 
-use App\Models\Bateau;
+use App\Models\Boat;
 
 class Board
 {
@@ -10,7 +10,7 @@ class Board
 
     public function init(): array
     {
-        $boats = Bateau::all();
+        $boats = Boat::all();
         $arr = [];
         foreach ($boats as $boat) {
             $pos = Possibility::factory($boat->size, $boat->name);

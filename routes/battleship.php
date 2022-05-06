@@ -1,25 +1,25 @@
 <?php
 
 use App\Ai\Heatmap;
-use App\Http\Controllers\PartieController;
-use App\Http\Controllers\PartieMissileController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\GameMissileController;
 use App\Http\Resources\HeatmapResource;
-use App\Models\Partie;
+use App\Models\Game;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/parties')
-    ->controller(PartieController::class)
+    ->controller(GameController::class)
     ->middleware('auth:sanctum')
     ->group(function () {
         Route::post('/', 'store');
-        Route::delete('/{partie}', 'destroy');
+        Route::delete('/{game}', 'destroy');
     });
 
 Route::prefix('/parties')
-    ->controller(PartieMissileController::class)
+    ->controller(GameMissileController::class)
     ->middleware('auth:sanctum')
     ->group(function () {
-        Route::get('/{partie}', 'show');
-        Route::post('/{partie}/missiles', 'store');
-        Route::put('/{partie}/missiles/{coord}', 'update');
+        Route::get('/{game}', 'show');
+        Route::post('/{game}/missiles', 'store');
+        Route::put('/{game}/missiles/{missile:coordinate}', 'update')->scopeBindings();
     });

@@ -2,21 +2,21 @@
 
 namespace App\Ai;
 
-use App\Http\Controllers\PartieMissileController;
-use App\Models\Bateau;
-use App\Models\Partie;
+use App\Http\Controllers\GameMissileController;
+use App\Models\Boat;
+use App\Models\Game;
 use App\Models\Stack;
 
 class Heatmap
 {
-    private Partie $partie;
+    private Game $partie;
 
     private int $parity = 2;
 
     /**
-     * @param Partie $partie
+     * @param Game $partie
      */
-    public function __construct(Partie $partie)
+    public function __construct(Game $partie)
     {
         $this->partie = $partie;
     }
@@ -37,7 +37,7 @@ class Heatmap
         }
 
         foreach ($remaining as $bateau) {
-            $b = Bateau::query()->find($bateau->bateau_id)->first();
+            $b = Boat::query()->find($bateau->bateau_id)->first();
             $heat = $this->ofSize($b->size, $heat);
         }
 
@@ -53,7 +53,7 @@ class Heatmap
             }
         }
 
-        if (! PartieMissileController::isValidCoord($highest->getVector(), $this->partie)) {
+        if (! GameMissileController::isValidCoord($highest->getVector(), $this->partie)) {
             return $this->generate();
         }
 

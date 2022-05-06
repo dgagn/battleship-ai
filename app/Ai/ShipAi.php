@@ -4,7 +4,7 @@ namespace App\Ai;
 
 use App\Ai\States\HuntingState;
 use App\Ai\States\TargetState;
-use App\Models\Partie;
+use App\Models\Game;
 
 class ShipAi
 {
@@ -25,7 +25,7 @@ class ShipAi
         $this->state = new TargetState();
     }
 
-    public function shoot(Partie $partie): Vector
+    public function shoot(Game $partie): Vector
     {
         return $this->state->shoot($this, $partie);
     }

@@ -43,8 +43,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function parties(): HasMany
+    public function games(): HasMany
     {
-        return $this->hasMany(Partie::class);
+        return $this->hasMany(Game::class);
     }
 }
