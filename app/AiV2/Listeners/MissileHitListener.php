@@ -26,7 +26,7 @@ class MissileHitListener
         }
 
         $ai->update([
-            'hits' => $ai->getHits() + 1
+            'hits' => $ai->getHits() + 1,
         ]);
     }
 }

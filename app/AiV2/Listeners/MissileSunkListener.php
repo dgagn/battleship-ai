@@ -37,7 +37,7 @@ class MissileSunkListener
             ->size - 1;
 
         $ai->update([
-            'hits' => $ai->getHits() - $size
+            'hits' => $ai->getHits() - $size,
         ]);
     }
 }

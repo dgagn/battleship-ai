@@ -32,7 +32,7 @@ class MissileHitStackListener
             $coordWithStackDirection = Vector::from($missile->getCoordinate())
                 ->add($direction);
 
-            if (!$coordWithStackDirection->within(0, config('battleship.size') - 1)) {
+            if (! $coordWithStackDirection->within(0, config('battleship.size') - 1)) {
                 continue;
             }
 

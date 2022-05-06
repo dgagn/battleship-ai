@@ -25,5 +25,5 @@ return [
         'sunk.destroyer' => 4,
         'sunk.sous-marin' => 5,
         'sunk.patrouilleur' => 6,
-    ]
+    ],
 ];

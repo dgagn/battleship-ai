@@ -25,7 +25,7 @@ class GameController extends Controller
     {
         /** @var Game $game */
         $game = Game::query()->create([
-            'opponent' => $request->validated('adversaire')
+            'opponent' => $request->validated('adversaire'),
         ]);
         $service = new GameService($game);
         $service->createGameSetup();

@@ -29,6 +29,7 @@ class Game extends Model
     public function board(): Collection
     {
         $service = new BoardService($this);
+
         return $service->createGameBoard();
     }
 

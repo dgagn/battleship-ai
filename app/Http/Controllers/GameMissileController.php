@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\AiV2\Events\MissileUpdated;
 use App\AiV2\Services\HeatmapService;
 use App\AiV2\Services\MissileService;
-use App\AiV2\Events\MissileUpdated;
 use App\Http\Requests\UpdateGameMissileRequest;
 use App\Http\Resources\GameMissileResource;
 use App\Models\Boat;
